@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Page from '../Page/Page';
 import Axios from 'axios';
 
 export default function HomeGuest() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       await Axios.post('http://localhost:8080/register', {
-        username: 'test',
-        email: 'test@test.com',
-        password: 'qwerty123456',
+        username,
+        email,
+        password,
       });
-      console.log('user created');
+      setUsername('');
+      setEmail('');
+      setPassword('');
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +48,8 @@ export default function HomeGuest() {
                 type='text'
                 placeholder='Pick a username'
                 autoComplete='off'
+                onChange={(event) => setUsername(event.target.value)}
+                value={username}
               />
             </div>
             <div className='form-group'>
@@ -55,6 +63,8 @@ export default function HomeGuest() {
                 type='text'
                 placeholder='you@example.com'
                 autoComplete='off'
+                onChange={(event) => setEmail(event.target.value)}
+                value={email}
               />
             </div>
             <div className='form-group'>
@@ -67,6 +77,8 @@ export default function HomeGuest() {
                 className='form-control'
                 type='password'
                 placeholder='Create a password'
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
               />
             </div>
             <button
