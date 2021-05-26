@@ -1,7 +1,22 @@
 import React from 'react';
 import Page from '../Page/Page';
+import Axios from 'axios';
 
 export default function HomeGuest() {
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      await Axios.post('http://localhost:8080/register', {
+        username: 'test',
+        email: 'test@test.com',
+        password: 'qwerty123456',
+      });
+      console.log('user created');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Page title='ComplexApp' wide={true}>
       <div className='row align-items-center'>
@@ -15,7 +30,7 @@ export default function HomeGuest() {
           </p>
         </div>
         <div className='col-lg-5 pl-lg-5 pb-3 py-lg-5'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='form-group'>
               <label htmlFor='username-register' className='text-muted mb-1'>
                 <small>Username</small>
