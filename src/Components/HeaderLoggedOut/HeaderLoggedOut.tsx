@@ -9,6 +9,18 @@ const HeaderLoggedOut = (props: Props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  interface LoginResponseData {
+    token: string;
+    username: string;
+    avatar: string;
+  }
+
+  const updateLocalStorageValues = (data: LoginResponseData) => {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('username', data.username);
+    localStorage.setItem('avatar', data.avatar);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -20,7 +32,7 @@ const HeaderLoggedOut = (props: Props) => {
         console.log('Invalid credentials.');
         return;
       }
-      console.log(res.data);
+      updateLocalStorageValues(res.data);
       props.setIsLoggedIn(true);
     } catch (error) {
       console.log(error);

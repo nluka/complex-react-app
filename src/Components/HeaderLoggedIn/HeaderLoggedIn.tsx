@@ -5,6 +5,21 @@ interface Props {
 }
 
 const HeaderLoggedIn = (props: Props) => {
+  const getAvatar = () => {
+    const avatar = localStorage.getItem('avatar');
+    if (avatar === null) {
+      return '';
+    }
+    return avatar;
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('avatar');
+    props.setIsLoggedIn(false);
+  };
+
   return (
     <div className='flex-row my-3 my-md-0'>
       <a href='#' className='text-white mr-2 header-search-icon'>
@@ -15,18 +30,12 @@ const HeaderLoggedIn = (props: Props) => {
         <span className='chat-count-badge text-white'> </span>
       </span>
       <a href='#' className='mr-2'>
-        <img
-          className='small-header-avatar'
-          src='https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128'
-        />
+        <img className='small-header-avatar' src={getAvatar()} />
       </a>
       <a className='btn btn-sm btn-success mr-2' href='/create-post'>
         Create Post
       </a>
-      <button
-        onClick={() => props.setIsLoggedIn(false)}
-        className='btn btn-sm btn-secondary'
-      >
+      <button onClick={handleLogOut} className='btn btn-sm btn-secondary'>
         Sign Out
       </button>
     </div>
