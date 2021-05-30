@@ -9,6 +9,7 @@ import Home from './Home/Home';
 import HomeGuest from './HomeGuest/HomeGuest';
 import CreatePost from './CreatePost/CreatePost';
 import axios from 'axios';
+import ViewSinglePost from './ViewSinglePost/ViewSinglePost';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
@@ -26,6 +27,9 @@ export default function App() {
         </Route>
         <Route path='/create-post'>
           <CreatePost />
+        </Route>
+        <Route path='/post/:id'>
+          <ViewSinglePost />
         </Route>
         <Route path='/about'>
           <About />

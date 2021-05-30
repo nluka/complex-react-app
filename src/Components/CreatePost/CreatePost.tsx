@@ -1,19 +1,23 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import Page from '../Page/Page';
 
-const CreatePost = () => {
+interface Props extends RouteComponentProps {}
+
+const CreatePost = (props: Props) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await axios.post('/create-post', {
+      const res = await axios.post('/create-post', {
         title,
         body,
         token: localStorage.getItem('token'),
       });
+      props.history.push(`/post/${res.data}`);
     } catch (error) {
       console.log(error);
     }
@@ -58,4 +62,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default withRouter(CreatePost);
