@@ -7,6 +7,10 @@ import About from './About/About';
 import Terms from './Terms/Terms';
 import Home from './Home/Home';
 import HomeGuest from './HomeGuest/HomeGuest';
+import CreatePost from './CreatePost/CreatePost';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:8080';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -19,6 +23,9 @@ export default function App() {
       <Switch>
         <Route path='/' exact>
           {isLoggedIn ? <Home /> : <HomeGuest />}
+        </Route>
+        <Route path='/create-post'>
+          <CreatePost />
         </Route>
         <Route path='/about'>
           <About />

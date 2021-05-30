@@ -24,7 +24,7 @@ const HeaderLoggedOut = (props: Props) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8080/login', {
+      const res = await axios.post('/login', {
         username,
         password,
       });
