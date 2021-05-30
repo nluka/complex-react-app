@@ -1,7 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-const HeaderLoggedOut = () => {
+interface Props {
+  setIsLoggedIn: Function;
+}
+
+const HeaderLoggedOut = (props: Props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,6 +21,7 @@ const HeaderLoggedOut = () => {
         return;
       }
       console.log(res.data);
+      props.setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
     }
