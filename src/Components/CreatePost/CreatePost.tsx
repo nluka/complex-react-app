@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import Page from '../Page/Page';
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps {
+  addFlashMessage: Function;
+}
 
 const CreatePost = (props: Props) => {
   const [title, setTitle] = useState('');
@@ -17,6 +19,7 @@ const CreatePost = (props: Props) => {
         body,
         token: localStorage.getItem('token'),
       });
+      props.addFlashMessage('Post created successfully.');
       props.history.push(`/post/${res.data}`);
     } catch (error) {
       console.log(error);

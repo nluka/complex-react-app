@@ -10,6 +10,7 @@ import HomeGuest from './HomeGuest/HomeGuest';
 import CreatePost from './CreatePost/CreatePost';
 import axios from 'axios';
 import ViewSinglePost from './ViewSinglePost/ViewSinglePost';
+import FlashMessages from './FlashMessages/FlashMessages';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
@@ -17,16 +18,22 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('token') !== null ? true : false
   );
+  const [flashMessages, setFlashMessages] = useState<string[]>([]);
+
+  const addFlashMessage = (message: string) => {
+    setFlashMessages((prev) => prev.concat(message));
+  };
 
   return (
     <BrowserRouter>
+      <FlashMessages messages={flashMessages} />
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Switch>
         <Route path='/' exact>
           {isLoggedIn ? <Home /> : <HomeGuest />}
         </Route>
         <Route path='/create-post'>
-          <CreatePost />
+          <CreatePost addFlashMessage={addFlashMessage} />
         </Route>
         <Route path='/post/:id'>
           <ViewSinglePost />
