@@ -1,13 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import ExampleContext from '../../ExampleContext';
 
-interface Props {
-  setIsLoggedIn: Function;
-}
-
-const HeaderLoggedOut = (props: Props) => {
+const HeaderLoggedOut = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const { setIsLoggedIn } = useContext(ExampleContext);
 
   interface LoginResponseData {
     token: string;
@@ -33,7 +32,7 @@ const HeaderLoggedOut = (props: Props) => {
         return;
       }
       updateLocalStorageValues(res.data);
-      props.setIsLoggedIn(true);
+      setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
     }

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import ExampleContext from '../../ExampleContext';
 
-interface Props {
-  setIsLoggedIn: Function;
-}
+const HeaderLoggedIn = () => {
+  const { setIsLoggedIn } = useContext(ExampleContext);
 
-const HeaderLoggedIn = (props: Props) => {
   const getAvatar = () => {
     const avatar = localStorage.getItem('avatar');
     if (avatar === null) {
@@ -18,7 +17,7 @@ const HeaderLoggedIn = (props: Props) => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('avatar');
-    props.setIsLoggedIn(false);
+    setIsLoggedIn(false);
   };
 
   return (

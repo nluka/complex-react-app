@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
+import ExampleContext from '../../ExampleContext';
 import Page from '../Page/Page';
 
-interface Props extends RouteComponentProps {
-  addFlashMessage: Function;
-}
+interface Props extends RouteComponentProps {}
 
 const CreatePost = (props: Props) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+
+  const { addFlashMessage } = useContext(ExampleContext);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -19,7 +20,7 @@ const CreatePost = (props: Props) => {
         body,
         token: localStorage.getItem('token'),
       });
-      props.addFlashMessage('Post created successfully.');
+      addFlashMessage('Post created successfully.');
       props.history.push(`/post/${res.data}`);
     } catch (error) {
       console.log(error);
